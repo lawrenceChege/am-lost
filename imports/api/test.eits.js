@@ -29,8 +29,8 @@ if (Meteor.isServer) {
             Eits.remove({});
             EitId = Eits.insert({
               name: "Dayo",
-              age: 31,
-              phone: 16626278,
+              age: "31",
+              phone: "16626278",
               country: "Nigeria",
               area: "Technology",
               fact: "Party hype",
@@ -58,7 +58,7 @@ if (Meteor.isServer) {
           username: "lawrence"
         }]);
         assert.equal(Eits.find().count(),2);
-      })
+      });
       it("cannot create an EIT when not logged in", () => {
         const insertEIT = Meteor.server.method_handlers["eits.insert"];
         const invocation = { }
@@ -125,7 +125,7 @@ if (Meteor.isServer) {
           owner: userId,
           username: "larry"
         });
-        const invocation = {userId}
+        const invocation = {userId};
         const EITPublication = Meteor.server.publish_handlers.eits;
         assert.strictEqual(EITPublication.apply(invocation).count(),2);
 
