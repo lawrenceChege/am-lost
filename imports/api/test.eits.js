@@ -119,7 +119,7 @@ if (Meteor.isServer) {
           age: "31",
           phone: "16626278",
           country: "Nigeria",
-          area: "Technology",
+          area: "Tech",
           fact: "Party hype",
           createdAt: new Date(),
           owner: userId,
