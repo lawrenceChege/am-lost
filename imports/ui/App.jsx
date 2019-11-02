@@ -23,14 +23,6 @@ class App extends Component {
     return(
       <div className="container">
         <Nav />
-        {/* <div className="row">
-          <div className="col">
-            <FORM handleSubmit={this.handleSubmit}/>
-          </div>
-          <div className="col-md-auto">
-            <TABLE eitData ={this.state.EITs} />
-          </div>
-        </div> */}
       </div>
     )
   }

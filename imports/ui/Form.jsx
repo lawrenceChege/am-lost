@@ -28,6 +28,7 @@ class FORM extends Component{
 
   submitForm = (event) => {
     const {name, age, phone, country, area, fact, createdAt, owner, username} = this.state;
+    
     Meteor.call('eits.insert', name, age, phone, country, area, fact,createdAt, owner, username)
     
   }
