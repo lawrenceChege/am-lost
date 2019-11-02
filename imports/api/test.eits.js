@@ -66,8 +66,8 @@ if (Meteor.isServer) {
         assert.throws(() => {
           insertEIT.apply(invocation, [{
             name: "Dayo",
-            age: 31,
-            phone: 16626278,
+            age: "31",
+            phone: "16626278",
             country: "Nigeria",
             area: "Technology",
             fact: "Party hype",
@@ -78,7 +78,7 @@ if (Meteor.isServer) {
         }, Meteor.Error, "You are not allowed to insert EIT");
         
         assert.equal(Eits.find().count(),1);
-      })
+      });
         
       it("can delete owned EIT", () => {
                   // Find the internal implementation of the task method so we can
@@ -132,8 +132,8 @@ if (Meteor.isServer) {
 
       });
       it("can edit owned EIT",() => {
-        const editEITs = Meteor.server.method_handlers["eits.edit"]
-        const invocation = { userId }
+        const editEITs = Meteor.server.method_handlers["eits.edit"];
+        const invocation = { userId };
         editEITs.apply(invocation, [EitId,{
           name: "Helen",
           age: "23",
@@ -144,12 +144,12 @@ if (Meteor.isServer) {
           createdAt: new Date(),
           owner: userId,
           username: "larry"
-        }])
+        }]);
         assert.equal(Eits.find({name: "Helen"}).count(), 1);
       });
       it("cannot edit someones EIT",() => {
         const editEITs = Meteor.server.method_handlers["eits.edit"];
-        const invocation = { }
+        const invocation = { };
 
         assert.throws(() => {
           editEITs.apply(invocation, [EitId,{
