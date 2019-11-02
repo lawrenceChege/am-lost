@@ -1,5 +1,5 @@
 import assert from "assert";
-import "../imports/api/test.eits"
+import "../imports/api/test.eits";
 
 describe("am-lost", function () {
   it("package.json has correct name", async function () {
