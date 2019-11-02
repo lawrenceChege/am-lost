@@ -14,7 +14,7 @@ Meteor.methods({
     'eits.insert'(name, age, phone, country, area, fact) {
         if (!this.userId) {
             // alert("You are not authorized to perform this task")
-            throw new Meteor.Error('You are not allowed to insert EIT');
+            throw new Meteor.Error("You are not allowed to insert EIT");
         }
         Eits.insert({
             name,
@@ -32,7 +32,7 @@ Meteor.methods({
         const eit = Eits.findOne(eitId);
         if (eit.owner !== this.userId) {
             // alert("You are not authorized to perform this task")
-                throw new Meteor.Error('You are not allowed to delete this');
+                throw new Meteor.Error("You are not allowed to delete this");
               }
             Eits.remove(eitId);
     
@@ -40,7 +40,7 @@ Meteor.methods({
     'eits.setChecked'(eitId, setChecked){
         const eit = Eits.findOne(eitId);
         if(eit.owner !== this.userId){
-            throw new Meteor.Error('You are not allowed to do that');
+            throw new Meteor.Error("You are not allowed to do that");
         }
         Eits.update(eitId, {
             $set: { checked: setChecked },
@@ -52,7 +52,7 @@ Meteor.methods({
         const eit = Eits.findOne(eitId);
         if (eit.owner !== this.userId) {
             // alert("You are not authorized to perform this task")
-            throw new Meteor.Error('not-authorized');
+            throw new Meteor.Error("not-authorized");
               }
         const checkedEits = Eits.find({checked: true}).fetch();
                 checkedEits.map((eit) => Eits.remove(eit._id))
@@ -63,7 +63,7 @@ Meteor.methods({
         const eit = Eits.findOne(eitId);
         if (eit.owner !== this.userId) {
             // alert("You are not authorized to perform this task")
-                throw new Meteor.Error('You cannot edit someone else EIT');
+                throw new Meteor.Error("You cannot edit someone else EIT");
               }
         Eits.update(eitId,{
                     $set: {

@@ -1,14 +1,14 @@
 /* eslint-env mocha */
-import { Meteor } from 'meteor/meteor';
-import { Accounts } from 'meteor/accounts-base'
-import { Random } from 'meteor/random';
-import { assert } from 'chai';
-import { Eits } from '../api/eits';
+import { Meteor } from "meteor/meteor";
+import { Accounts } from "meteor/accounts-base";
+import { Random } from "meteor/random";
+import { assert } from "chai";
+import { Eits } from "../api/eits";
  
 if (Meteor.isServer) {
-  describe('Eits', () => {
-    describe('methods', () => {
-      const username = 'larry';
+  describe("Eits", () => {
+    describe("methods", () => {
+      const username = "larry";
       let EitId, userId;
       before(() => {
         let user = Meteor.users.findOne({ username: username });
@@ -25,7 +25,7 @@ if (Meteor.isServer) {
 
       });
       
-        beforeEach(()=>{
+        beforeEach(() => {
             Eits.remove({});
             EitId = Eits.insert({
               name: 'Dayo',
@@ -43,7 +43,7 @@ if (Meteor.isServer) {
             // Meteor.call('eits.insert' )
 
         });
-      it('can create an EIT', ()=>{
+      it('can create an EIT', () => {
         const insertEIT = Meteor.server.method_handlers['eits.insert'];
         const invocation = { userId }
         insertEIT.apply(invocation, [{
@@ -59,11 +59,11 @@ if (Meteor.isServer) {
         }]);
         assert.equal(Eits.find().count(),2)
       })
-      it('cannot create an EIT when not logged in', ()=>{
+      it('cannot create an EIT when not logged in', () => {
         const insertEIT = Meteor.server.method_handlers['eits.insert'];
         const invocation = { }
 
-        assert.throws(()=>{
+        assert.throws(() => {
           insertEIT.apply(invocation, [{
             name: 'Dayo',
             age: 31,
@@ -94,7 +94,7 @@ if (Meteor.isServer) {
         // Verify that the method does what we expected
         assert.equal(Eits.find().count(), 0);
       });
-      it('cannot delete someones EIT',()=>{
+      it('cannot delete someones EIT',() => {
         // test it in isolation
         const deleteTask = Meteor.server.method_handlers['eits.remove'];
  
@@ -102,7 +102,7 @@ if (Meteor.isServer) {
         const invocation = { };
  
         // Run the method with `this` set to the fake invocation
-        assert.throws(()=>{
+        assert.throws(() => {
           deleteTask.apply(invocation, [EitId]);
 
         }, Meteor.Error, 'You are not allowed to delete this')
@@ -112,7 +112,7 @@ if (Meteor.isServer) {
         assert.equal(Eits.find().count(), 1);
 
       });
-      it('can view all EITs',()=>{
+      it('can view all EITs',() => {
         const userId = Random.id()
         Eits.insert({
           name: 'Dayo',
@@ -131,7 +131,7 @@ if (Meteor.isServer) {
 
 
       });
-      it('can edit owned EIT',()=>{
+      it('can edit owned EIT',() => {
         const editEITs = Meteor.server.method_handlers['eits.edit']
         const invocation = { userId }
         editEITs.apply(invocation, [EitId,{
@@ -147,11 +147,11 @@ if (Meteor.isServer) {
         }])
         assert.equal(Eits.find({name: 'Helen'}).count(), 1);
       });
-      it('cannot edit someones EIT',()=>{
+      it('cannot edit someones EIT',() => {
         const editEITs = Meteor.server.method_handlers['eits.edit']
         const invocation = { }
 
-        assert.throws(()=>{
+        assert.throws(() => {
           editEITs.apply(invocation, [EitId,{
             name: 'Helen',
             age: 23,
@@ -168,14 +168,14 @@ if (Meteor.isServer) {
         assert.equal(Eits.find({name: 'Helen'}).count(), 0);
 
       });
-      it('can check owned EIT',()=>{
+      it('can check owned EIT',() => {
         const setChecked = Meteor.server.method_handlers['eits.setChecked'];
         const invocation = { userId }               
         setChecked.apply(invocation, [EitId, true]);
         assert.equal(Eits.find({checked:true}).count(), 1);                
 
       });
-      it('cannot check someones EIT',()=>{
+      it('cannot check someones EIT',() => {
         const setChecked = Meteor.server.method_handlers['eits.setChecked'];
         const invocation = { }
         assert.throws(()=>{
